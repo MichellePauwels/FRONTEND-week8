@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Flickr ding</title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css" media="screen"charset="utf-8">
+    <link rel="stylesheet" href="styles/style.css" charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <h1>Flickr Ding</h1>
+    </header>
+
+    <div id="main">
+      <section ng-controller="FlickrController">
+
+        <img ng-hide="images" src="images/5.gif" alt="wachten trut" />
+
+        <fieldset ng-show="images">
+          <legend>Search Images</legend>
+
+          <div class="form-container">
+            <label for="searchText">Search for</label>
+            <input type="text" placeholder="query..." id="searchText" class="form-control" ng-model="searchQuery" />
+          </div>
+
+          <div class="form-container">
+            <label for="sortOn">Sort on</label>
+            <select id="sortOn" class="form-control" ng-model="sortProperty">
+              <option value="title">Title ASC</option>
+              <option value="-title">Title DESC</option> <!-- - is voor aflopend, + voor oplopend -->
+            </select>
+          </div>
+
+          <div class="form-container">
+            <label for="searchinImagesText">Search in found images</label>
+            <input type="text" ng-model="filterQuery" class="form-control" name="searchinImagesText" placeholder="cats..." />
+          </div>
+
+          <div class="form-container">
+            <button type="button" class="btn btn-primary" ng-click="searchImages()">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </fieldset>
+
+        <div ng-show="images" id="wrapper">
+          <ul id="imageList">
+            <li class="flickrimage" ng-class="checkandStyleTitle(i)" ng-repeat="i in images | orderBy:sortProperty | filter:filterImages"> <!-- 'title' op de title, zonder de '' sorteren op iets met propertyname title -->
+              <flickrimage></flickrimage>
+            </li>
+          </ul>
+        </div>
+
+      </section>
+    </div>
+
+    <footer>&copy; - NMCT (MIMSAAAAH)</footer>
+
+    <script src="../lib/angular/angular.js"></script>
+    <script src="models/FlickrImage.js"></script>
+    <script src="app.js"></script>
+    <script src="ImagesOverview/ImagesOverviewController.js"></script>
+  </body>
+</html>
